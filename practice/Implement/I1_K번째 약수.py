@@ -15,5 +15,4 @@ result.sort()
 if(len(result) < k):
   print(-1)
 else:
-  print(result)
   print(result[k-1])
