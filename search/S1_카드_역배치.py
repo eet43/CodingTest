@@ -27,7 +27,7 @@ num=list(range(21))
 for _ in range(10):
   start, end = map(int, input().split())
 
-  for i in range((end-start+1)//2):
+  for i in range((end-start+1)//2): //swap밑 탐색에 있어서 굳이 다 돌 필요없다. 이분탐색을 활용하면됨
     num[start+i], num[end-i] = num[end-i], num[start+i]
 
 num.pop(0)
