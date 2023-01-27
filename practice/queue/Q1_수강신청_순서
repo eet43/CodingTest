@@ -1,0 +1,20 @@
+import sys
+from collections import deque 
+sys.stdin = open("input.txt", "rt")
+
+must = input()
+n = int(input())
+
+for i in range(n):
+  sch = input()
+  dq = deque(must)
+  for x in sch:
+    if x in dq:
+      if x != dq.popleft():
+        print("#",i+1," NO")
+        break
+  else :
+    if len(dq) == 0:
+      print("#",i+1," YES")
+    else:
+      print("#",i+1," NO")
