@@ -1,0 +1,63 @@
+# 로봇 청소기 or 게임 개발
+# 방향이 있고 시계 방향 or 반대 방향으로 회전하면서 탐색
+# 더이상 갈 수 없으면 뒤로 한칸 빽
+
+import sys
+
+# 좌표 입력
+n, m = map(int, sys.stdin.readline().split())
+# 방문 체크 여부
+check = [[0] * m for _ in range(n)]
+# 현재 캐릭터 좌표와 방향
+x, y, d = map(int, sys.stdin.readline().split())
+
+# 맵 입력받기
+area = []
+for _ in range(n):
+  area.append(list(map(int, sys.stdin.readline().split())))
+
+# 현재 위치 방문 표시
+check[x][y] = 1
+
+# 방향 표시 (순서는 북, 동, 남, 서 방향) => 문제에 제시
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def turn_left():
+  global d
+  d -= 1
+  if d == -1:
+    d = 3 # 후에 index 범위 에러 대비
+
+count = 1
+turn_time = 0
+# 시뮬레이션 시작
+while True:
+  # 탐색을 한 후 왼쪽으로 회전
+  turn_left()
+  nx = x + dx[d]
+  ny = y + dy[d]
+  if 0<=nx<n and 0<=ny<m:
+    if check[nx][ny] == 0 and area[nx][ny] == 0:
+      check[nx][ny] = 1
+      x = nx
+      y = ny
+      count += 1
+      turn_time = 0
+      continue
+    else:
+      turn_time += 1
+  else:
+    turn_time += 1
+  if turn_time == 4:
+    nx = x - dx[d]
+    ny = y - dy[d]
+    if 0<=nx<n and 0<=ny<m:
+      if area[nx][ny] == 0:
+        x = nx
+        y = ny
+      else:
+        break
+    turn_time = 0
+
+print(count)
