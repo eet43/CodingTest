@@ -30,8 +30,8 @@ class Main {
       Node cur = pq.poll();
       int now = cur.v;
       int nowCost = cur.w;
+      if(nowCost > dijk[now]) continue;
       for(Node cd : arr.get(now)) {
-        if(nowCost > dijk[cd.v]) continue;
         if(!imp[cd.v]) continue;
           if(dijk[cd.v] > nowCost + cd.w) {
             dijk[cd.v] = nowCost + cd.w;
@@ -55,7 +55,7 @@ class Main {
 
     arr = new ArrayList<ArrayList<Node>>();
     imp = new boolean[n];
-    dijk = new int[n];
+    dijk = new long[n];
     
     for(int i=0; i<n; i++) {
       arr.add(new ArrayList<Node>());
